@@ -75,10 +75,7 @@ class Hover(BaseTask):
         error_position    = np.linalg.norm(self.target_position    - state[0:3])
         error_orientation = np.linalg.norm(self.target_orientation - state[3:7])
         error_velocity    = np.linalg.norm(self.target_velocity    - state[7:10])
-       
-        error_velocity = 0
-        error_orientation = 0
-
+      
         reward = -(self.weight_position * math.pow(error_position,2) + self.weight_orientation * error_orientation + self.weight_velocity * error_velocity)
 
         self.steps += 1
