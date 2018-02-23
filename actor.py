@@ -37,6 +37,7 @@ class Actor:
         net = layers.Dense(units=64, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=l2(l2_lambda))(net)
         net = layers.Dense(units=64, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=l2(l2_lambda))(net)
         net = layers.Dense(units=64, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=l2(l2_lambda))(net)
+        net = layers.Dropout(0.5)(net)
         net = layers.BatchNormalization()(net)
 
         # Try different layer sizes, activations, add batch norm, regularizers, etc.
@@ -59,7 +60,7 @@ class Actor:
         # Incorporate any additional losses here (e.g. from regularizers)
 
         # Define optimizer and training function
-        optimizer = optimizers.Adam()
+        optimizer = optimizers.Adam(lr=0.0001)
         updates_op = optimizer.get_updates(params=self.model.trainable_weights, 
             loss=loss)
         self.train_fn = K.function(

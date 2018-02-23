@@ -26,17 +26,17 @@ class Hover(BaseTask):
         #print("Takeoff(): action_space = {}".format(self.action_space))  # [debug]
 
         # Task-specific parameters
-        self.max_duration = 5.0  # secs
+        self.max_duration = 3.0  # secs
 
         self.target_position = np.array([0.0, 0.0, 10.0])
         self.target_orientation  = np.array([0.0, 0.0, 0.0, 1.0])
         self.target_velocity = np.array([0.0, 0.0, 0.0])
 
-        self.weight_position = 0.5
+        self.weight_position = 0.6
         self.weight_orientation = 0.3
-        self.weight_velocity = 0.2
+        self.weight_velocity = 0.4
 
-        self.max_error_position = 8.0
+        self.max_error_position = 5.0
 
         self.episode = 0
         self.steps = 0
@@ -75,7 +75,7 @@ class Hover(BaseTask):
         error_position    = np.linalg.norm(self.target_position    - state[0:3])
         error_orientation = np.linalg.norm(self.target_orientation - state[3:7])
         error_velocity    = np.linalg.norm(self.target_velocity    - state[7:10])
-      
+       
         reward = -(self.weight_position * math.pow(error_position,2) + self.weight_orientation * error_orientation + self.weight_velocity * error_velocity)
 
         self.steps += 1
